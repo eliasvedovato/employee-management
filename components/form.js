@@ -1,12 +1,40 @@
+import { useReducer } from 'react'
+import { BiPlus } from 'react-icons/bi'
+import Success from './success'
+
+const formReducer = (state, event) => {
+	return {
+		...state,
+		[event.target.name]: event.target.value,
+		// overwrite the previous value
+	}
+}
+
 export default function Form() {
+	const [formData, setFormData] = useReducer(formReducer, {})
+
+	const handleSubmit = e => {
+		e.preventDefault()
+		if (Object.keys(formData).length == 0)
+			return console.log('Dont have form data')
+		console.log(formData)
+	}
+
+	if (Object.keys(formData).length > 0)
+		return <Success message={'Data Added'}></Success>
+
 	return (
-		<form className="grid lg:grid-cols-2 w-4/6 gap-4">
+		<form
+			className='grid lg:grid-cols-2 w-4/6 gap-4'
+			onSubmit={handleSubmit}
+		>
 			<div className='input-type'>
 				<input
 					type='text'
 					name='firstname'
 					placeholder='FirstName'
 					className='border w-full px-5 py-3 focus:outline-none rounded-md'
+					onChange={setFormData}
 				/>
 			</div>
 			<div className='input-type'>
@@ -15,6 +43,7 @@ export default function Form() {
 					name='lastname'
 					placeholder='LastName'
 					className='border w-full px-5 py-3 focus:outline-none rounded-md'
+					onChange={setFormData}
 				/>
 			</div>
 			<div className='input-type'>
@@ -23,6 +52,7 @@ export default function Form() {
 					name='email'
 					placeholder='Email'
 					className='border w-full px-5 py-3 focus:outline-none rounded-md'
+					onChange={setFormData}
 				/>
 			</div>
 			<div className='input-type'>
@@ -31,19 +61,21 @@ export default function Form() {
 					name='salary'
 					placeholder='Salary'
 					className='border w-full px-5 py-3 focus:outline-none rounded-md'
+					onChange={setFormData}
 				/>
 			</div>
-      <div className='input-type'>
+			<div className='input-type'>
 				<input
 					type='date'
 					name='date'
 					placeholder='Date'
 					className='border px-5 py-3 focus:outline-none rounded-md'
+					onChange={setFormData}
 				/>
 			</div>
 
-			<div className="flex gap-10 items-center">
-				<div className="form-check">
+			<div className='flex gap-10 items-center'>
+				<div className='form-check'>
 					<input
 						type='radio'
 						name='status'
@@ -62,7 +94,7 @@ export default function Form() {
 						Active
 					</label>
 				</div>
-				<div className="form-check">
+				<div className='form-check'>
 					<input
 						type='radio'
 						name='status'
@@ -87,7 +119,12 @@ export default function Form() {
 				className='flex justify-center text-md w-2/6 bg-green-500 
         text-white px-4 py-2 border rounded-md hover:bg-gray-50
         hover:border-green-500 hover:text-green-500'
-			>Add</button>
+			>
+				Add{' '}
+				<span className='px-1'>
+					<BiPlus size={24}></BiPlus>
+				</span>
+			</button>
 		</form>
 	)
 }
