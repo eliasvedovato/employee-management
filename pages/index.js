@@ -2,8 +2,16 @@ import Head from 'next/head'
 import { BiUserPlus } from 'react-icons/bi'
 import Table from '../components/table'
 import Form from '../components/form'
+import { useState } from 'react'
 
 export default function Home() {
+
+	const [visible, setVisible] = useState(false)
+
+	const handler = () => {
+		setVisible(!visible)
+	}
+
 	return (
 		<section>
 			<Head>
@@ -26,6 +34,7 @@ export default function Home() {
 							className='flex bg-indigo-500 text-white px-4 py-2 
 							border rounded-md hover:bg-gray-50 hover:border-indigo-500
 							hover:text-gray-800'
+							onClick={handler}
 						>
 							Add Employee{' '}
 							<span className='pl-3'>
@@ -35,9 +44,7 @@ export default function Home() {
 					</div>
 				</div>
 
-				<div className='container mx-auto py-5'>
-					<Form></Form>
-				</div>
+				{visible ? <Form></Form> : <></>}
 				
 				<div className='container mx-auto'>
 					<Table></Table>
