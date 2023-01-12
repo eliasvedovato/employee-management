@@ -1,5 +1,5 @@
 import { BiEdit, BiTrashAlt } from 'react-icons/bi'
-import data from "../database/data.json";
+import data from "../database/data.json"
 
 export default function Table() {
 	return (
