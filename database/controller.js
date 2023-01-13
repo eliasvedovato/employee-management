@@ -1,6 +1,6 @@
 import Users from '../model/user'
 
-// get : http://localhost:3000/api/users
+// get: http://localhost:3000/api/users
 export async function getUsers(req, res) {
 	try {
 		const users = await Users.find({})
@@ -13,7 +13,7 @@ export async function getUsers(req, res) {
 	}
 }
 
-// post : http://localhost:3000/api/users
+// post: http://localhost:3000/api/users
 export async function postUser(req, res) {
 	try {
 		//get the data from the user
@@ -31,7 +31,7 @@ export async function postUser(req, res) {
 	}
 }
 
-// put : http://localhost:3000/api/users/1
+// put: http://localhost:3000/api/users/1
 export async function putUser(req, res){
   try{
     const {userId} = req.query
@@ -40,6 +40,23 @@ export async function putUser(req, res){
     if(userId && formData){
       const user = await Users.findByIdAndUpdate(userId, formData)
       res.status(200).json(user)
+    }
+
+    res.status(404).json({error: 'Not find any user'})
+
+  } catch(error){
+    res.status(404).json({error: 'Error while updating the data'})
+  }
+}
+
+// delete: http://localhost:3000/api/users/1
+export async function deleteUser(req, res){
+  try{
+    const {userId} = req.query
+
+    if(userId){
+      const user = await Users.findByIdAndDelete(userId)
+      return res.status(200).json({user})
     }
 
     res.status(404).json({error: 'Not find any user'})
