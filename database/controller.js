@@ -30,3 +30,21 @@ export async function postUser(req, res) {
 		return res.status(404).json({ error: 'Error while fetching data' })
 	}
 }
+
+// put : http://localhost:3000/api/users/1
+export async function putUser(req, res){
+  try{
+    const {userId} = req.query
+    const formData = req.body
+
+    if(userId && formData){
+      const user = await Users.findByIdAndUpdate(userId, formData)
+      res.status(200).json(user)
+    }
+
+    res.status(404).json({error: 'Not find any user'})
+
+  } catch(error){
+    res.status(404).json({error: 'Error while updating the data'})
+  }
+}
