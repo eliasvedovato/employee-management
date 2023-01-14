@@ -1,5 +1,5 @@
 import { BiEdit, BiTrashAlt } from 'react-icons/bi'
-import { getUser } from '../lib/helper'
+import { getUsers } from '../lib/helper'
 import { useQuery } from 'react-query'
 
 export default function Table() {
@@ -44,7 +44,7 @@ export default function Table() {
 function Tr({ id, name, avatar, email, salary, date, status }) {
 	return (
 		<tr className='bg-gray-50 text-center'>
-			<td className='sm:pr-16 px-8 py-2 flex flex-row items-center gap-1'>
+			<td className='px-8 py-2 flex flex-row items-center gap-1'>
 				<img
 					src={avatar || '#'}
 					alt=''
