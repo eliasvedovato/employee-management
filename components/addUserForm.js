@@ -4,17 +4,8 @@ import { useMutation, useQueryClient } from 'react-query'
 import { addUser, getUsers } from '../lib/helper'
 import Success from './success'
 
-const formReducer = (state, event) => {
-	return {
-		...state,
-		[event.target.name]: event.target.value,
-		// overwrite the previous value
-	}
-}
-
-export default function AddUserForm() {
+export default function AddUserForm({formData, setFormData}) {
 	const queryClient = useQueryClient()
-	const [formData, setFormData] = useReducer(formReducer, {})
 	const addMutation = useMutation(addUser, {
 		onSuccess: () => {
 			queryClient.prefetchQuery('users', getUsers)

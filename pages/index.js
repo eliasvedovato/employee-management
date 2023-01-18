@@ -2,14 +2,19 @@ import Head from 'next/head'
 import { BiUserPlus } from 'react-icons/bi'
 import Table from '../components/table'
 import Form from '../components/form'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleChangeAction } from '../redux/reducer'
 
 export default function Home() {
 
-	const [visible, setVisible] = useState(false)
+	const visible = useSelector(
+		state => state.app.client.toggleForm
+	)
+
+	const dispatch = useDispatch()
 
 	const handler = () => {
-		setVisible(!visible)
+		dispatch(toggleChangeAction())
 	}
 
 	return (
@@ -45,7 +50,7 @@ export default function Home() {
 				</div>
 
 				{visible ? <Form></Form> : <></>}
-				
+
 				<div className='container mx-auto'>
 					<Table></Table>
 				</div>
