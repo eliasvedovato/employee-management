@@ -1,27 +1,38 @@
-import { useReducer } from 'react'
 import { BiBrush } from 'react-icons/bi'
-import { useQuery } from 'react-query'
-import Success from './success'
-import { getUser } from '../lib/helper'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { getUser, getUsers, updateUser } from '../lib/helper'
 
 export default function UpdateUserForm({ formId, formData, setFormData }) {
+
+	const queryClient = useQueryClient()
 	const { isLoading, isError, data, error } = useQuery(
-		['users', formId],
-		() => getUser(formId)
-	)
-	//single object as a response
+		['users', formId], () => getUser(formId)) //single object as a response
+	
+	const UpdateMutation = useMutation((newData) => updateUser(formId, newData), {
+		onSuccess: async (data) => {
+			// queryClient.setQueryData('users', (old) => [data])
+			queryClient.prefetchQuery('users', getUsers)
+		}
+	})
 
-	if(isLoading) return <div>Loading...</div>
-	if(isError) return <div>Error</div>
+	if (isLoading) return <div>Loading...</div>
+	if (isError) return <div>Error</div>
 
-	const {name, avatar, salary, date, email, status} = data
+	const { name, avatar, salary, date, email, status } = data
 	const [firstname, lastname] = name ? name.split(' ') : formData
 
-	const handleSubmit = e => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
-		if (Object.keys(formData).length == 0)
-			return console.log('Dont have form data')
-		console.log(formData)
+		let userName = `${formData.firstname ?? firstname} 
+		${formData.lastname ?? lastname}`
+
+		let updated = Object.assign({}, data, formData, { name: userName })
+		/* if we have the same property in this two objects,
+		the assign method is going to override both value 
+		with this second property value */
+		console.log(updated)
+
+		await UpdateMutation.mutate(updated)
 	}
 
 	return (
@@ -87,6 +98,7 @@ export default function UpdateUserForm({ formId, formData, setFormData }) {
 						name='status'
 						defaultChecked={status == 'Active'} // otherwise return flase
 						value='Active'
+						onChange={setFormData}
 						id='radioDefault1'
 						className='form-check-input appearance-none rounded-full h-4 w-4 
             border border-gray-300 bg-white checked:bg-green-500 
@@ -107,6 +119,7 @@ export default function UpdateUserForm({ formId, formData, setFormData }) {
 						name='status'
 						defaultChecked={status !== 'Active'}
 						value='Inactive'
+						onChange={setFormData}
 						id='radioDefault2'
 						className='form-check-input appearance-none rounded-full h-4 w-4 
             border border-gray-300 bg-white checked:bg-green-500 
