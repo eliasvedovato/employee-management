@@ -4,18 +4,23 @@ import { useMutation, useQueryClient } from 'react-query'
 import { addUser, getUsers } from '../lib/helper'
 import Success from './success'
 
-export default function AddUserForm({formData, setFormData}) {
+export default function AddUserForm({ formData, setFormData }) {
 	const queryClient = useQueryClient()
 	const addMutation = useMutation(addUser, {
 		onSuccess: () => {
 			queryClient.prefetchQuery('users', getUsers)
-		}
+		},
 	})
 
 	const handleSubmit = e => {
 		e.preventDefault()
+
+		// console.log(Object.keys(formData))
 		if (Object.keys(formData).length == 0)
 			return console.log('Dont have form data')
+
+		if (Object.keys(formData).length < 5)
+			return console.log('Complete every field')
 
 		//destructure the values of formData
 		let { firstname, lastname, email, salary, date, status } = formData

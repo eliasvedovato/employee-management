@@ -9,6 +9,7 @@ export default function UpdateUserForm({ formId, formData, setFormData }) {
 		['users', formId], () => getUser(formId)) //single object as a response
 	
 	const UpdateMutation = useMutation((newData) => updateUser(formId, newData), {
+		//second argument inside this object
 		onSuccess: async (data) => {
 			// queryClient.setQueryData('users', (old) => [data])
 			queryClient.prefetchQuery('users', getUsers)

@@ -2,7 +2,7 @@ import { BiEdit, BiTrashAlt } from 'react-icons/bi'
 import { getUsers } from '../lib/helper'
 import { useQuery } from 'react-query'
 import { useSelector, useDispatch } from "react-redux";
-import { toggleChangeAction, updateAction } from '../redux/reducer';
+import { deleteAction, toggleChangeAction, updateAction } from '../redux/reducer';
 
 export default function Table() {
 
@@ -61,7 +61,10 @@ function Tr({ _id, name, avatar, email, salary, date, status }) {
 	}
 
 	const onDelete = () => {
-		console.log('delete')
+		if(!visible){
+			console.log('are you sure?')
+			dispatch(deleteAction(_id))
+		}
 	}
 
 	return (
