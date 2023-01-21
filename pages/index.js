@@ -86,7 +86,7 @@ function DeleteComponent({ deletehandler, cancelhandler }) {
 			<p>Are you sure?</p>
 			<button
 				onClick={deletehandler}
-				className='flex bg-red-500 text-white px-4 py-2 border rounded-md hover:bg-rose-500 hover:border-red-500 hover:text-gray-50'
+				className='flex bg-green-500 text-white px-4 py-2 border rounded-md hover:bg-green-500 hover:border-green-500 hover:text-gray-50'
 			>
 				Yes{' '}
 				<span className='px-1'>
@@ -95,7 +95,7 @@ function DeleteComponent({ deletehandler, cancelhandler }) {
 			</button>
 			<button
 				onClick={cancelhandler}
-				className='flex bg-green-500 text-white px-4 py-2 border rounded-md hover:bg-green-500 hover:border-green-500 hover:text-gray-50'
+				className='flex bg-red-500 text-white px-4 py-2 border rounded-md hover:bg-rose-500 hover:border-red-500 hover:text-gray-50'
 			>
 				No{' '}
 				<span className='px-1'>
@@ -105,3 +105,5 @@ function DeleteComponent({ deletehandler, cancelhandler }) {
 		</div>
 	)
 }
+
+// flex bg-green-500 text-white px-4 py-2 border rounded-md hover:bg-green-500 hover:border-green-500 hover:text-gray-50'
