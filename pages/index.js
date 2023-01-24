@@ -10,10 +10,12 @@ import { useQueryClient } from 'react-query'
 export default function Home() {
 	const visible = useSelector(state => state.app.client.toggleForm)
 	const deleteId = useSelector(state => state.app.client.deleteId)
-	// console.log(deleteId)
+	
 	const queryClient = useQueryClient()
 
 	const dispatch = useDispatch()
+
+	// if(visible) return !state.app.client.toggleForm
 
 	const handler = () => {
 		dispatch(toggleChangeAction())
@@ -88,7 +90,7 @@ function DeleteComponent({ deletehandler, cancelhandler }) {
 				onClick={deletehandler}
 				className='flex bg-green-500 text-white px-4 py-2 border rounded-md hover:bg-green-500 hover:border-green-500 hover:text-gray-50'
 			>
-				Yes{' '}
+				Delete{' '}
 				<span className='px-1'>
 					<BiX color='rgb(255 255 255' size={25} />
 				</span>
@@ -97,7 +99,7 @@ function DeleteComponent({ deletehandler, cancelhandler }) {
 				onClick={cancelhandler}
 				className='flex bg-red-500 text-white px-4 py-2 border rounded-md hover:bg-rose-500 hover:border-red-500 hover:text-gray-50'
 			>
-				No{' '}
+				Cancel{' '}
 				<span className='px-1'>
 					<BiCheck color='rgb(255 255 255' size={25} />
 				</span>
@@ -105,5 +107,3 @@ function DeleteComponent({ deletehandler, cancelhandler }) {
 		</div>
 	)
 }
-
-// flex bg-green-500 text-white px-4 py-2 border rounded-md hover:bg-green-500 hover:border-green-500 hover:text-gray-50'

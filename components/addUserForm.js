@@ -3,6 +3,7 @@ import { BiPlus } from 'react-icons/bi'
 import { useMutation, useQueryClient } from 'react-query'
 import { addUser, getUsers } from '../lib/helper'
 import Success from './success'
+import Bug from './bug'
 
 export default function AddUserForm({ formData, setFormData }) {
 	const queryClient = useQueryClient()
